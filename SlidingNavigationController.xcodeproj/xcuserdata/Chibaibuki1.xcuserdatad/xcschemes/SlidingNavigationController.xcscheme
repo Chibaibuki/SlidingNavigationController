@@ -5,6 +5,22 @@
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D5AE33801C6794810012E3D2"
+               BuildableName = "SlidingNavigationController.app"
+               BlueprintName = "SlidingNavigationController"
+               ReferencedContainer = "container:SlidingNavigationController.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
    </BuildAction>
    <TestAction
       buildConfiguration = "Debug"
@@ -12,7 +28,36 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D5AE33991C6794810012E3D2"
+               BuildableName = "SlidingNavigationControllerTests.xctest"
+               BlueprintName = "SlidingNavigationControllerTests"
+               ReferencedContainer = "container:SlidingNavigationController.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D5AE33A41C6794810012E3D2"
+               BuildableName = "SlidingNavigationControllerUITests.xctest"
+               BlueprintName = "SlidingNavigationControllerUITests"
+               ReferencedContainer = "container:SlidingNavigationController.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "D5AE33801C6794810012E3D2"
+            BuildableName = "SlidingNavigationController.app"
+            BlueprintName = "SlidingNavigationController"
+            ReferencedContainer = "container:SlidingNavigationController.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -26,6 +71,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "D5AE33801C6794810012E3D2"
+            BuildableName = "SlidingNavigationController.app"
+            BlueprintName = "SlidingNavigationController"
+            ReferencedContainer = "container:SlidingNavigationController.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -35,6 +90,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "D5AE33801C6794810012E3D2"
+            BuildableName = "SlidingNavigationController.app"
+            BlueprintName = "SlidingNavigationController"
+            ReferencedContainer = "container:SlidingNavigationController.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
