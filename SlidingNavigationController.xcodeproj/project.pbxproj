@@ -15,6 +15,7 @@
 		D5AE33941C6794810012E3D2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5AE33921C6794810012E3D2 /* LaunchScreen.storyboard */; };
 		D5AE339F1C6794810012E3D2 /* SlidingNavigationControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D5AE339E1C6794810012E3D2 /* SlidingNavigationControllerTests.m */; };
 		D5AE33AA1C6794810012E3D2 /* SlidingNavigationControllerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = D5AE33A91C6794810012E3D2 /* SlidingNavigationControllerUITests.m */; };
+		D5AE33B91C6797470012E3D2 /* SlidingNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5AE33B81C6797470012E3D2 /* SlidingNavigationViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		D5AE33A51C6794810012E3D2 /* SlidingNavigationControllerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SlidingNavigationControllerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5AE33A91C6794810012E3D2 /* SlidingNavigationControllerUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SlidingNavigationControllerUITests.m; sourceTree = "<group>"; };
 		D5AE33AB1C6794810012E3D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D5AE33B71C6797470012E3D2 /* SlidingNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SlidingNavigationViewController.h; path = Class/SlidingNavigationViewController.h; sourceTree = "<group>"; };
+		D5AE33B81C6797470012E3D2 /* SlidingNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SlidingNavigationViewController.m; path = Class/SlidingNavigationViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +104,8 @@
 		D5AE33831C6794810012E3D2 /* SlidingNavigationController */ = {
 			isa = PBXGroup;
 			children = (
+				D5AE33B71C6797470012E3D2 /* SlidingNavigationViewController.h */,
+				D5AE33B81C6797470012E3D2 /* SlidingNavigationViewController.m */,
 				D5AE33871C6794810012E3D2 /* AppDelegate.h */,
 				D5AE33881C6794810012E3D2 /* AppDelegate.m */,
 				D5AE338A1C6794810012E3D2 /* ViewController.h */,
@@ -273,6 +278,7 @@
 				D5AE338C1C6794810012E3D2 /* ViewController.m in Sources */,
 				D5AE33891C6794810012E3D2 /* AppDelegate.m in Sources */,
 				D5AE33861C6794810012E3D2 /* main.m in Sources */,
+				D5AE33B91C6797470012E3D2 /* SlidingNavigationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
