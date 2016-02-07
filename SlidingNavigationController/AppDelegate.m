@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "SlidingNavigationViewController.h"
 
 @interface AppDelegate ()
 
@@ -16,7 +17,18 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    [self.window setBackgroundColor:[UIColor whiteColor]];
+    
+    NSArray * labelArray = [[NSArray alloc]initWithObjects:@"周报",@"月报",@"季报",@"hahahahha",@"121231231",nil];
+    SlidingNavigationViewController * avc = [SlidingNavigationViewController initWithLabelArray:labelArray ViewControllerArray:nil];
+    
+    [avc setGapWidth:10];
+    [self.window setRootViewController:avc];
+    
+    [self.window makeKeyAndVisible];
+    
+    
     return YES;
 }
 
