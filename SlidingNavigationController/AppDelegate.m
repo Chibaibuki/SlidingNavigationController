@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "SlidingNavigationViewController.h"
-
+#import "ContentPageViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -20,8 +20,16 @@
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [self.window setBackgroundColor:[UIColor whiteColor]];
     
-    NSArray * labelArray = [[NSArray alloc]initWithObjects:@"周报",@"月报",@"季报",@"hahahahha",@"121231231",nil];
-    SlidingNavigationViewController * avc = [SlidingNavigationViewController initWithLabelArray:labelArray ViewControllerArray:nil];
+    NSArray * labelArray = [[NSArray alloc]initWithObjects:@"周报",@"月报",@"季报",nil];
+    ContentPageViewController * contentVC1 = [[ContentPageViewController alloc]init];
+    [contentVC1 setTitle:@"vc1"];
+    ContentPageViewController * contentVC2 = [[ContentPageViewController alloc]init];
+    [contentVC2 setTitle:@"vc2"];
+    ContentPageViewController * contentVC3 = [[ContentPageViewController alloc]init];
+    [contentVC3 setTitle:@"vc3"];
+    
+    NSArray * viewControllerArray = [[NSArray alloc]initWithObjects:contentVC1,contentVC2,contentVC3, nil];
+    SlidingNavigationViewController * avc = [SlidingNavigationViewController initWithLabelArray:labelArray ViewControllerArray:viewControllerArray];
     
     [avc setGapWidth:10];
     [self.window setRootViewController:avc];

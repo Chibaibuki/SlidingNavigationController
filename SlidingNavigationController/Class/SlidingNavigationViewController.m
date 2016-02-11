@@ -7,8 +7,7 @@
 //
 
 #import "SlidingNavigationViewController.h"
-
-@interface SlidingNavigationViewController ()
+@interface SlidingNavigationViewController () <UIScrollViewDelegate>
 
 @end
 
@@ -28,6 +27,8 @@
     CGFloat fontWidth;
     
     NSMutableArray *labelViewArray;
+    UITextField *aTextFiled;
+    UIScrollView * contentPageScrollView ;
 }
 
 + (instancetype)initWithLabelArray:(NSArray*)labelarray ViewControllerArray:(NSArray*)vcarray{
@@ -80,11 +81,6 @@
     labelScrollWid = tagScrollViewWidth;
     [self.labelScrollView setContentSize:CGSizeMake(tagScrollViewWidth,tagScrollViewHeight)];
     [self.labelScrollView setScrollEnabled:NO];
-    
-    //
-    
-
-    
     //Draw tags
     CGFloat originPos = 0.0;
     for (int i=0;i<self.labelList.count ; i++) {
@@ -127,6 +123,32 @@
         [self.pointLabelRight setHidden:YES];
     }
     
+    //ContentPageScrollView
+    
+    contentPageScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0,self.statusBarHeight+self.naviBarHeight, mainScreenWidth, mainScreenHeight-(self.statusBarHeight+self.naviBarHeight))];
+    [contentPageScrollView setBackgroundColor:[UIColor whiteColor]];
+    [contentPageScrollView setPagingEnabled:YES];
+    [contentPageScrollView setScrollEnabled:YES];
+    [contentPageScrollView setCanCancelContentTouches:YES];
+    [contentPageScrollView setBounces:NO];
+    [contentPageScrollView setContentSize:CGSizeMake(3*mainScreenWidth,0)];
+    [contentPageScrollView setDelegate:self];
+    
+    for (int i=0; i<self.vcList.count; i++) {
+        UIViewController * avc = self.vcList[i];
+        [avc.view setTag:1000+i];
+        [avc.view setFrame:CGRectMake( i*mainScreenWidth,0, mainScreenWidth, mainScreenHeight)];
+        [contentPageScrollView addSubview:avc.view];
+    }
+
+    
+    //TestButton
+    
+    UIButton *searchButton = [[UIButton alloc]initWithFrame:CGRectMake(0, self.statusBarHeight, 50, 50)];
+    [searchButton setTitle:@"Search" forState:UIControlStateNormal];
+    [searchButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [searchButton addTarget:self action:@selector(searchButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    
     UIButton *nextButton = [[UIButton alloc]initWithFrame:CGRectMake(mainScreenWidth/2+50, mainScreenHeight/2, 50, 50)];
     [nextButton setTitle:@"Next" forState:UIControlStateNormal];
     [nextButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -136,13 +158,25 @@
     [preButton setTitle:@"Pre" forState:UIControlStateNormal];
     [preButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [preButton addTarget:self action:@selector(preButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-    
+    aTextFiled = [[UITextField alloc]initWithFrame:CGRectMake(50, self.statusBarHeight, 0, 23)];
+    [aTextFiled setPlaceholder:@"123"];
+    [aTextFiled setBorderStyle:UITextBorderStyleRoundedRect];
     [self.view addSubview:navigationBarBk];
     [self.view addSubview:self.labelScrollView];
     [self.view addSubview:nextButton];
     [self.view addSubview:preButton];
     [self.view addSubview:self.pointLabelRight];
     [self.view addSubview:self.pointLabelLift];
+//    UIViewController * avc = self.vcList[0];
+//    [avc.view setFrame:CGRectMake(0, self.naviBarHeight+self.statusBarHeight, mainScreenHeight, mainScreenHeight-(self.statusBarHeight+self.naviBarHeight))];
+    
+    [self.view addSubview:searchButton];
+//    [self.view addSubview:avc.view];
+    [self.view addSubview:aTextFiled];
+    [self.view addSubview:contentPageScrollView];
+    
+    
+    
 
     // Do any additional setup after loading the view, typically from a nib.
 }
@@ -158,28 +192,42 @@
 -(void)nextButtonClicked{
     
     [self changeToNextTag];
+    [self changeNextPage];
     
 }
 
 -(void)preButtonClicked{
     [self changeToPreTag];
+    [self changePrePage];
 }
 
 -(void)changeToSelectedTag:(id)sender{
     NSInteger deltaIndex = [sender tag] - markTag;
     NSLog(@"selected");
+    int page = [contentPageScrollView contentOffset].x / mainScreenWidth;
     if (deltaIndex>0) {
         for (int k =0; k<deltaIndex; k++) {
             [self changeToNextTag];
+            page++;
         }
     }else if (deltaIndex<0) {
         NSInteger newdelta = -deltaIndex;
         for (int k=0; k<newdelta; k++) {
             [self changeToPreTag];
+            page--;
         }
     }
+        [contentPageScrollView setContentOffset:CGPointMake(page*mainScreenWidth, 0) animated:YES];
+    //[self changeToViewAtIndex:markTag];
 }
 
+-(void)searchButtonClicked{
+    [UIView beginAnimations:@"Search" context:nil];
+    [UIView setAnimationDuration:0.5];
+    [aTextFiled setFrame:CGRectMake(50, self.statusBarHeight, 200, 23)];
+
+    [UIView commitAnimations];
+}
 #pragma mark - TagChanging
 //TagChanging
 -(void)changeToNextTag{
@@ -247,6 +295,17 @@
     }
 }
 
+-(void)changeToViewAtIndex:(NSInteger)index{
+    for (UIView *subviews in [self.view subviews]) {
+        if (subviews.tag==1000+index) {
+            [subviews removeFromSuperview];
+        }
+    }
+    UIViewController * avc = self.vcList[index];
+    [avc.view setFrame:CGRectMake(0, self.statusBarHeight+self.naviBarHeight, mainScreenHeight, mainScreenHeight-(self.statusBarHeight+self.naviBarHeight))];
+    [self.view addSubview:avc.view];
+}
+
 #pragma mark - StringSize
 
 - (CGSize)getStringSize:(NSString *)string font:(UIFont *)font{
@@ -274,6 +333,43 @@
     return aSize;
     
 }
+
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    if ([[scrollView class]isSubclassOfClass:[UITableView class]]) return;
+    int page = scrollView.contentOffset.x / mainScreenWidth;
+    
+    NSInteger deltaIndex = page - markTag;
+    NSLog(@"selected");
+    if (deltaIndex>0) {
+        for (int k =0; k<deltaIndex; k++) {
+            [self changeToNextTag];
+        }
+    }else if (deltaIndex<0) {
+        NSInteger newdelta = -deltaIndex;
+        for (int k=0; k<newdelta; k++) {
+            [self changeToPreTag];
+        }
+    }
+}
+
+#pragma mark -
+
+-(void)changeNextPage{
+    int page = [contentPageScrollView contentOffset].x / mainScreenWidth;
+    page++;
+    [contentPageScrollView setContentOffset:CGPointMake(page*mainScreenWidth, 0) animated:YES];
+    
+}
+
+-(void)changePrePage{
+    int page = [contentPageScrollView contentOffset].x / mainScreenWidth;
+    page--;
+    [contentPageScrollView setContentOffset:CGPointMake(page*mainScreenWidth, 0) animated:YES];
+    
+}
+
 
 
 @end
